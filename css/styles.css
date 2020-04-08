@@ -1,0 +1,72 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  font-size: 65.5%;
+}
+
+.main {
+  height: 100vh;
+  background-color: #aaa;
+  padding: 2rem;
+}
+
+.main__heading {
+  text-align: center;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.main__container {
+  width: 40rem;
+  height: 40rem;
+  margin: auto;
+  border: 1px solid #ccc;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  margin-bottom: 3rem;
+}
+
+.main__container__square {
+  border: 1px solid #6b6a6a;
+}
+
+.main__actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto;
+  width: 50%;
+  margin-bottom: 2rem;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.main__actions > input, .main__actions > input:focus, .main__actions > input:active {
+  padding: 1rem 2rem;
+  border-radius: 3px;
+  color: #999;
+  border: none;
+  outline: none;
+}
+
+.main > button {
+  width: 20rem;
+  margin: auto;
+  display: block;
+  padding: 1rem 2rem;
+  border: none;
+  outline: none;
+  background-color: #3098dd;
+}
+/*# sourceMappingURL=styles.css.map */
