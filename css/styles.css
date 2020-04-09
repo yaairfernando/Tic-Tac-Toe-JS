@@ -41,6 +41,10 @@ html {
   border: 1px solid #6b6a6a;
 }
 
+.main__container .winMessage.hide {
+  display: none;
+}
+
 .main__actions {
   display: -webkit-box;
   display: -ms-flexbox;

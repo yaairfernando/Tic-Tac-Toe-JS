@@ -17,26 +17,42 @@ const gameBoard = (() => {
 
   let boardArray = [];
 
-  const checkSquare = (num) => squares[num].innerHTML == " ";
+  const checkSquare = (num) => {
+    console.log("Squares: ",squares);
+    console.log(squares[num].innerText)
+    console.count('square');
+    return squares[num].innerText == "";
+  }
   const fillSquare = (player, num) => {
     let move = {
       name: player.name,
       num,
     };
-    boardArray.push(move);
-    squares[num].innerHTML = player.mark;
-    console.log("arr:", boardArray);
+    gameBoard.boardArray.push(move);
+    squares[num].innerText = player.mark;
+    console.log("arr:", gameBoard);
   };
 
   const clearBoard = () => {
     console.log("enter");
 
     document.querySelectorAll(".main__container__square").forEach((square) => {
-      square.innerHTML = " ";
+      square.innerText = "";
       square.style.display = "block";
     });
 
-    let boardArray = [];
+    let i = 1;
+    for (square in squares) {
+      squares[i] = document.getElementById(`${i}`)
+      i++;
+    }
+
+    console.log("Squares: ",squares);
+    // console.log(squares[0].innerText)
+
+    if (gameBoard.boardArray.length > 0) {
+      gameBoard.boardArray = [];
+    }
   };
 
   return {
@@ -46,6 +62,7 @@ const gameBoard = (() => {
     clearBoard,
   };
 })();
+
 
 const gameController = (() => {
   let player1;
@@ -70,13 +87,15 @@ const gameController = (() => {
     document.querySelectorAll(".main__container__square").forEach((square) => {
       square.style.display = "none";
     });
-    document.querySelector(".main__container").innerHTML += winMessage;
+    document.querySelector(".winMessage").classList.remove('hide')
+    document.querySelector(".winMessage").innerHTML = winMessage;
   };
 
   const win = (player) => {
-    console.log("gambrd: ", gameBoard);
+    // console.log("gambrd: ", gameBoard);
+    // console.log("palyer: ", player);
 
-    nums = gameBoard.boardArray
+    let nums = gameBoard.boardArray
       .filter((f) => f.name === player.name)
       .map((m) => parseInt(m.num));
     const combinations = [
@@ -87,11 +106,17 @@ const gameController = (() => {
       [3, 5, 7],
     ];
     combinations.forEach((combination) => {
-      console.log("wih: ", combination);
-      console.log("woh: ", nums);
       if (combination.every((f) => nums.indexOf(f) > -1)) {
-        console.log("winn:", combination);
+        console.log("wih: ", combination);
+        console.log("woh: ", nums);
         displayWiner(player.name);
+        document
+        .querySelectorAll(".main__container__square")
+        .forEach((square) => {
+          console.log(square);
+          square.removeEventListener("click", () => play(square.getAttribute('id')));
+        });
+        console.log("WINNNER");
         return false;
       }
     });
@@ -115,8 +140,8 @@ const gameController = (() => {
 
   const startGame = (board) => {
     brd = board;
-    p1 = document.getElementById("playerOne").value;
-    p2 = document.getElementById("playerTwo").value;
+    let p1 = document.getElementById("playerOne").value;
+    let p2 = document.getElementById("playerTwo").value;
 
     document.getElementById("playerOne").value = "";
     document.getElementById("playerTwo").value = "";
@@ -126,8 +151,10 @@ const gameController = (() => {
       player2 = player(p2, "o");
       turn = player1;
 
-      if (document.querySelector(".winMessage"))
-        document.querySelector(".winMessage").style.display = "none";
+
+      if (!document.querySelector(".winMessage").classList.contains('hide')) {
+        document.querySelector(".winMessage").classList.add('hide');
+      }
 
       brd.clearBoard();
 
