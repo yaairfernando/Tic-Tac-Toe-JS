@@ -18,11 +18,11 @@ const gameBoard = (() => {
   let boardArray = [];
 
   const checkSquare = (num) => {
-    console.log("Squares: ",squares);
-    console.log(squares[num].innerText)
-    console.count('square');
+    console.log("Squares: ", squares);
+    console.log(squares[num].innerText);
+    console.count("square");
     return squares[num].innerText == "";
-  }
+  };
   const fillSquare = (player, num) => {
     let move = {
       name: player.name,
@@ -43,11 +43,11 @@ const gameBoard = (() => {
 
     let i = 1;
     for (square in squares) {
-      squares[i] = document.getElementById(`${i}`)
+      squares[i] = document.getElementById(`${i}`);
       i++;
     }
 
-    console.log("Squares: ",squares);
+    console.log("Squares: ", squares);
     // console.log(squares[0].innerText)
 
     if (gameBoard.boardArray.length > 0) {
@@ -63,12 +63,12 @@ const gameBoard = (() => {
   };
 })();
 
-
 const gameController = (() => {
   let player1;
   let player2;
   let turn;
   let brd;
+  let addListeners = true;
 
   const displayPlayer = (player) => {
     let span = (document.createElement(
@@ -87,7 +87,7 @@ const gameController = (() => {
     document.querySelectorAll(".main__container__square").forEach((square) => {
       square.style.display = "none";
     });
-    document.querySelector(".winMessage").classList.remove('hide')
+    document.querySelector(".winMessage").classList.remove("hide");
     document.querySelector(".winMessage").innerHTML = winMessage;
   };
 
@@ -104,6 +104,9 @@ const gameController = (() => {
       [7, 8, 9],
       [1, 5, 9],
       [3, 5, 7],
+      [1, 4, 7],
+      [2, 5, 8],
+      [1, 3, 9],
     ];
     combinations.forEach((combination) => {
       if (combination.every((f) => nums.indexOf(f) > -1)) {
@@ -111,11 +114,13 @@ const gameController = (() => {
         console.log("woh: ", nums);
         displayWiner(player.name);
         document
-        .querySelectorAll(".main__container__square")
-        .forEach((square) => {
-          console.log(square);
-          square.removeEventListener("click", () => play(square.getAttribute('id')));
-        });
+          .querySelectorAll(".main__container__square")
+          .forEach((square) => {
+            console.log(square);
+            square.removeEventListener("click", () =>
+              play(square.getAttribute("id"))
+            );
+          });
         console.log("WINNNER");
         return false;
       }
@@ -151,21 +156,23 @@ const gameController = (() => {
       player2 = player(p2, "o");
       turn = player1;
 
-
-      if (!document.querySelector(".winMessage").classList.contains('hide')) {
-        document.querySelector(".winMessage").classList.add('hide');
+      if (!document.querySelector(".winMessage").classList.contains("hide")) {
+        document.querySelector(".winMessage").classList.add("hide");
       }
 
       brd.clearBoard();
 
       displayPlayer(turn);
-      document
-        .querySelectorAll(".main__container__square")
-        .forEach((square) => {
-          square.addEventListener("click", () => {
-            play(square.getAttribute("id"));
+      if (addListeners) {
+        document
+          .querySelectorAll(".main__container__square")
+          .forEach((square) => {
+            square.addEventListener("click", () => {
+              play(square.getAttribute("id"));
+            });
           });
-        });
+        addListeners = false;
+      }
     } else {
       alert("you need to fill both names");
       return false;
