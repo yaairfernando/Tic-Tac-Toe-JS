@@ -85,17 +85,17 @@ const gameController = (() => {
     document.querySelector('.winMessage').innerHTML = winMessage;
   };
 
-  const displayMessage = msg => {
-    let alert =document.querySelector('.alert')
-    alert.classList.remove('hide')
+  const displayMessage = (msg) => {
+    const alert = document.querySelector('.alert');
+    alert.classList.remove('hide');
     alert.style.display = 'block';
     alert.innerHTML = `
       <span>${msg}</span>
-    `
+    `;
     setTimeout(() => {
       alert.style.display = 'none';
     }, 3000);
-  }
+  };
 
   const win = (plyr) => {
     const nums = gameBoard.boardArray
