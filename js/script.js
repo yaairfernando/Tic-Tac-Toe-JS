@@ -66,9 +66,16 @@ const gameController = (() => {
   };
 
   const displayWiner = (plyr) => {
-    const winMessage = `
-    <h1 class="winMessage">Congratulations!, ${plyr} won!!!</h1>
-    `;
+    let winMessage;
+    if (plyr === null) {
+      winMessage = `
+      <p class="winMessage">It's draw!!</p>
+      `;
+    } else {
+      winMessage = `
+      <p class="winMessage">Congratulations ${plyr}, you won!!!</p>
+      `;
+    }
 
     document.querySelectorAll('.main__container__square').forEach((square) => {
       const buffer = square;
@@ -77,6 +84,18 @@ const gameController = (() => {
     document.querySelector('.winMessage').classList.remove('hide');
     document.querySelector('.winMessage').innerHTML = winMessage;
   };
+
+  const displayMessage = msg => {
+    let alert =document.querySelector('.alert')
+    alert.classList.remove('hide')
+    alert.style.display = 'block';
+    alert.innerHTML = `
+      <span>${msg}</span>
+    `
+    setTimeout(() => {
+      alert.style.display = 'none';
+    }, 3000);
+  }
 
   const win = (plyr) => {
     const nums = gameBoard.boardArray
@@ -95,6 +114,12 @@ const gameController = (() => {
     combinations.forEach((combination) => {
       if (combination.every((f) => nums.indexOf(f) > -1)) {
         displayWiner(plyr.name);
+        document.querySelector('.main__messages').style.display = 'none';
+        return false;
+      }
+      if (nums.length === 5) {
+        displayWiner(null);
+        document.querySelector('.main__messages').style.display = 'none';
         return false;
       }
       return true;
@@ -111,7 +136,7 @@ const gameController = (() => {
         displayPlayer(turn);
       }
     } else {
-      alert('That square is already taken');
+      displayMessage('Please select a valid square!!');
     }
   };
 
@@ -131,7 +156,7 @@ const gameController = (() => {
       if (!document.querySelector('.winMessage').classList.contains('hide')) {
         document.querySelector('.winMessage').classList.add('hide');
       }
-
+      document.querySelector('.main__messages').style.display = 'block';
       brd.clearBoard();
 
       displayPlayer(turn);
@@ -146,7 +171,7 @@ const gameController = (() => {
         addListeners = false;
       }
     } else {
-      alert('you need to fill both names');
+      displayMessage('Please enter your name to start the game!!');
       return false;
     }
     return true;
