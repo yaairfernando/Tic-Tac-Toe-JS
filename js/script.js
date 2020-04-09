@@ -1,53 +1,41 @@
-const player = (name, mark) => {
-  return { name, mark };
-};
+const player = (name, mark) => ({ name, mark });
 
 const gameBoard = (() => {
-  let squares = {
-    1: document.getElementById("1"),
-    2: document.getElementById("2"),
-    3: document.getElementById("3"),
-    4: document.getElementById("4"),
-    5: document.getElementById("5"),
-    6: document.getElementById("6"),
-    7: document.getElementById("7"),
-    8: document.getElementById("8"),
-    9: document.getElementById("9"),
+  const squares = {
+    1: document.getElementById('1'),
+    2: document.getElementById('2'),
+    3: document.getElementById('3'),
+    4: document.getElementById('4'),
+    5: document.getElementById('5'),
+    6: document.getElementById('6'),
+    7: document.getElementById('7'),
+    8: document.getElementById('8'),
+    9: document.getElementById('9'),
   };
 
-  let boardArray = [];
+  const boardArray = [];
 
-  const checkSquare = (num) => {
-    console.log("Squares: ", squares);
-    console.log(squares[num].innerText);
-    console.count("square");
-    return squares[num].innerText == "";
-  };
-  const fillSquare = (player, num) => {
-    let move = {
-      name: player.name,
+  const checkSquare = (num) => squares[num].innerText === '';
+  const fillSquare = (plyr, num) => {
+    const move = {
+      name: plyr.name,
       num,
     };
     gameBoard.boardArray.push(move);
-    squares[num].innerText = player.mark;
-    console.log("arr:", gameBoard);
+    squares[num].innerText = plyr.mark;
   };
 
   const clearBoard = () => {
-    console.log("enter");
-
-    document.querySelectorAll(".main__container__square").forEach((square) => {
-      square.innerText = "";
-      square.style.display = "block";
+    document.querySelectorAll('.main__container__square').forEach((square) => {
+      const buffer = square;
+      buffer.innerText = '';
+      buffer.style.display = 'block';
     });
 
-    let i = 1;
-    for (square in squares) {
+    for (let i = 1; i < squares.length; i += 1) {
       squares[i] = document.getElementById(`${i}`);
-      i++;
     }
 
-    console.log("Squares: ", squares);
     // console.log(squares[0].innerText)
 
     if (gameBoard.boardArray.length > 0) {
@@ -70,34 +58,30 @@ const gameController = (() => {
   let brd;
   let addListeners = true;
 
-  const displayPlayer = (player) => {
-    let span = (document.createElement(
-      "span"
-    ).innerText = `It is ${player.name}'s turn`);
-    document.querySelector(".player").innerHTML = span;
+  const displayPlayer = (plyr) => {
+    const span = `
+    <span>It is ${plyr.name}'s turn</span>
+    `;
+    document.querySelector('.player').innerHTML = span;
   };
 
-  const displayWiner = (player) => {
-    console.log("won: ", player);
-
-    let winMessage = `
-    <h1 class="winMessage">Congratulations!, ${player} won!!!</h1>
+  const displayWiner = (plyr) => {
+    const winMessage = `
+    <h1 class="winMessage">Congratulations!, ${plyr} won!!!</h1>
     `;
 
-    document.querySelectorAll(".main__container__square").forEach((square) => {
-      square.style.display = "none";
+    document.querySelectorAll('.main__container__square').forEach((square) => {
+      const buffer = square;
+      buffer.style.display = 'none';
     });
-    document.querySelector(".winMessage").classList.remove("hide");
-    document.querySelector(".winMessage").innerHTML = winMessage;
+    document.querySelector('.winMessage').classList.remove('hide');
+    document.querySelector('.winMessage').innerHTML = winMessage;
   };
 
-  const win = (player) => {
-    // console.log("gambrd: ", gameBoard);
-    // console.log("palyer: ", player);
-
-    let nums = gameBoard.boardArray
-      .filter((f) => f.name === player.name)
-      .map((m) => parseInt(m.num));
+  const win = (plyr) => {
+    const nums = gameBoard.boardArray
+      .filter((f) => f.name === plyr.name)
+      .map((m) => parseInt(m.num, 10));
     const combinations = [
       [1, 2, 3],
       [4, 5, 6],
@@ -106,24 +90,14 @@ const gameController = (() => {
       [3, 5, 7],
       [1, 4, 7],
       [2, 5, 8],
-      [1, 3, 9],
+      [3, 6, 9],
     ];
     combinations.forEach((combination) => {
       if (combination.every((f) => nums.indexOf(f) > -1)) {
-        console.log("wih: ", combination);
-        console.log("woh: ", nums);
-        displayWiner(player.name);
-        document
-          .querySelectorAll(".main__container__square")
-          .forEach((square) => {
-            console.log(square);
-            square.removeEventListener("click", () =>
-              play(square.getAttribute("id"))
-            );
-          });
-        console.log("WINNNER");
+        displayWiner(plyr.name);
         return false;
       }
+      return true;
     });
     return true;
   };
@@ -132,32 +106,30 @@ const gameController = (() => {
     if (brd.checkSquare(num)) {
       brd.fillSquare(turn, num);
       if (win(turn)) {
-        turn = turn == player1 ? player2 : player1;
+        turn = turn === player1 ? player2 : player1;
 
         displayPlayer(turn);
-      } else {
-        return true;
       }
     } else {
-      alert("That square is already taken");
+      alert('That square is already taken');
     }
   };
 
   const startGame = (board) => {
     brd = board;
-    let p1 = document.getElementById("playerOne").value;
-    let p2 = document.getElementById("playerTwo").value;
+    const p1 = document.getElementById('playerOne').value;
+    const p2 = document.getElementById('playerTwo').value;
 
-    document.getElementById("playerOne").value = "";
-    document.getElementById("playerTwo").value = "";
+    document.getElementById('playerOne').value = '';
+    document.getElementById('playerTwo').value = '';
 
     if (p1 && p2) {
-      player1 = player(p1, "x");
-      player2 = player(p2, "o");
+      player1 = player(p1, 'x');
+      player2 = player(p2, 'o');
       turn = player1;
 
-      if (!document.querySelector(".winMessage").classList.contains("hide")) {
-        document.querySelector(".winMessage").classList.add("hide");
+      if (!document.querySelector('.winMessage').classList.contains('hide')) {
+        document.querySelector('.winMessage').classList.add('hide');
       }
 
       brd.clearBoard();
@@ -165,18 +137,19 @@ const gameController = (() => {
       displayPlayer(turn);
       if (addListeners) {
         document
-          .querySelectorAll(".main__container__square")
+          .querySelectorAll('.main__container__square')
           .forEach((square) => {
-            square.addEventListener("click", () => {
-              play(square.getAttribute("id"));
+            square.addEventListener('click', () => {
+              play(square.getAttribute('id'));
             });
           });
         addListeners = false;
       }
     } else {
-      alert("you need to fill both names");
+      alert('you need to fill both names');
       return false;
     }
+    return true;
   };
 
   return {
@@ -185,6 +158,6 @@ const gameController = (() => {
   };
 })();
 
-document.querySelector("#startGame").addEventListener("click", () => {
+document.querySelector('#startGame').addEventListener('click', () => {
   gameController.startGame(gameBoard);
 });
