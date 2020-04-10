@@ -36,8 +36,6 @@ const gameBoard = (() => {
       squares[i] = document.getElementById(`${i}`);
     }
 
-    // console.log(squares[0].innerText)
-
     if (gameBoard.boardArray.length > 0) {
       gameBoard.boardArray = [];
     }
