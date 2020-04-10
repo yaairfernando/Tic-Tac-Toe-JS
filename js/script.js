@@ -15,7 +15,7 @@ const gameBoard = (() => {
 
   const boardArray = [];
 
-  const checkSquare = (num) => squares[num].innerText === '';
+  const checkSquare = num => squares[num].innerText === '';
   const fillSquare = (plyr, num) => {
     const move = {
       name: plyr.name,
@@ -97,8 +97,8 @@ const gameController = (() => {
 
   const win = (plyr) => {
     const nums = gameBoard.boardArray
-      .filter((f) => f.name === plyr.name)
-      .map((m) => parseInt(m.num, 10));
+      .filter(f => f.name === plyr.name)
+      .map(m => parseInt(m.num, 10));
     const combinations = [
       [1, 2, 3],
       [4, 5, 6],
@@ -110,7 +110,7 @@ const gameController = (() => {
       [3, 6, 9],
     ];
     combinations.forEach((combination) => {
-      if (combination.every((f) => nums.indexOf(f) > -1)) {
+      if (combination.every(f => nums.indexOf(f) > -1)) {
         displayWiner(plyr.name);
         document.querySelector('.main__messages').style.display = 'none';
         return false;
