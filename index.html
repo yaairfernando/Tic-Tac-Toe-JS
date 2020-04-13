@@ -4,10 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,300;0,400;1,300&display=swap" rel="stylesheet">
   <title>TIC TAC TOE</title>
 </head>
 <body>
-  
+  <main class="main">
+    <h1 class="main__heading">TIC TAC TOE</h1>
+    <div class="main__messages">
+      <div class="player"></div>
+      <div class="alert hide"></div>
+    </div>
+    <div class="main__container">
+      <div class="main__container__square" id="1"></div>
+      <div class="main__container__square" id="2"></div>
+      <div class="main__container__square" id="3"></div>
+      <div class="main__container__square" id="4"></div>
+      <div class="main__container__square" id="5"></div>
+      <div class="main__container__square" id="6"></div>
+      <div class="main__container__square" id="7"></div>
+      <div class="main__container__square" id="8"></div>
+      <div class="main__container__square" id="9"></div>
+      <div class="winMessage hide"></div>
+    </div>
+    <div class="main__actions">
+      <input type="text" id="playerOne" placeholder="Player One">
+      <input type="text" id="playerTwo" placeholder="Player Two">
+    </div>
+    <button class="button" id="startGame">Start Game</button>
+  </main>
 
   <script src="js/script.js"></script>
 </body>
