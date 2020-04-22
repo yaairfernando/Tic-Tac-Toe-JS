@@ -1,5 +1,5 @@
 const gameBoard = (() => {
-  const squares = {
+  let squares = {
     1: document.getElementById('1'),
     2: document.getElementById('2'),
     3: document.getElementById('3'),
@@ -13,7 +13,11 @@ const gameBoard = (() => {
 
   const boardArray = [];
 
-  const checkSquare = num => squares[num].innerText === '';
+  const checkSquare = (num, extraSquares = null) => {
+    if (extraSquares) squares = extraSquares;
+    return squares[num].innerText === '';
+  };
+
   const fillSquare = (plyr, num) => {
     const move = {
       name: plyr.name,
@@ -44,6 +48,9 @@ const gameBoard = (() => {
     checkSquare,
     boardArray,
     clearBoard,
+    set(newSquares) {
+      squares = newSquares;
+    },
   };
 })();
 
