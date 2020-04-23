@@ -13,10 +13,7 @@ const gameBoard = (() => {
 
   const boardArray = [];
 
-  const checkSquare = (num, extraSquares = null) => {
-    if (extraSquares) squares = extraSquares;
-    return squares[num].innerText === '';
-  };
+  const checkSquare = (num) => squares[num].innerText === '';
 
   const fillSquare = (plyr, num) => {
     const move = {
@@ -48,7 +45,7 @@ const gameBoard = (() => {
     checkSquare,
     boardArray,
     clearBoard,
-    set(newSquares) {
+    set squares(newSquares) {
       squares = newSquares;
     },
   };

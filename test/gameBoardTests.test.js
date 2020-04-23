@@ -1,20 +1,23 @@
 import gameBoard from '../src/packages/gameBoard';
 
 describe('The gameboard should', () => {
-  test('be an object', () => {
-    expect(typeof gameBoard).toEqual('object');
-  });
-  describe('check for empty squares and', () => {
-    const squares = [
+  beforeAll(() => {
+    gameBoard.squares = [
       { innerText: '' },
       { innerText: 'x' },
       { innerText: 'o' },
     ];
+  });
+
+  test('be an object', () => {
+    expect(typeof gameBoard).toEqual('object');
+  });
+  describe('check for empty squares and', () => {
     test("return true if it's empty", () => {
-      expect(gameBoard.checkSquare(0, squares)).toEqual(true);
+      expect(gameBoard.checkSquare(0)).toEqual(true);
     });
     test("return false if it's empty", () => {
-      expect(gameBoard.checkSquare(1, squares)).toEqual(false);
+      expect(gameBoard.checkSquare(1)).toEqual(false);
     });
   });
   test('have an empty board array at the beggining', () => {
