@@ -22,7 +22,7 @@ describe('The gameController should', () => {
   test('be an object', () => {
     expect(typeof gameController).toEqual('object');
   });
-  describe('play###', () => {
+  describe('play with the selected square and', () => {
     it('should fail if the square is already taken', () => {
       const alert = document.querySelector('.alert');
       document.querySelector('#playerOne').value = 'Yair';
@@ -72,6 +72,38 @@ describe('The gameController should', () => {
       gameController.play(2);
       const winMessage = document.querySelector('.winMessage p');
       expect(winMessage.innerHTML).toEqual('Congratulations Yair, you won!!!');
+    });
+    it('should draw if nobody won', () => {
+      document.querySelector('#playerOne').value = 'Yair';
+      document.querySelector('#playerTwo').value = 'Joseph';
+
+      gameController.startGame(gameBoard);
+      gameBoard.boardArray = [
+        { name: 'Yair', num: 1 },
+        { name: 'Yair', num: 2 },
+        { name: 'Joseph', num: 3 },
+        { name: 'Joseph', num: 4 },
+        { name: 'Joseph', num: 5 },
+        { name: 'Yair', num: 6 },
+        { name: 'Yair', num: 7 },
+        { name: 'Joseph', num: 8 },
+      ];
+
+      gameBoard.squares = [
+        { innerText: 'x' },
+        { innerText: 'x' },
+        { innerText: 'o' },
+        { innerText: 'o' },
+        { innerText: 'o' },
+        { innerText: 'x' },
+        { innerText: 'x' },
+        { innerText: 'o' },
+        { innerText: '' },
+      ];
+      gameController.brd = gameBoard;
+      gameController.play(8);
+      const winMessage = document.querySelector('.winMessage p');
+      expect(winMessage.innerHTML).toEqual("It's draw!!");
     });
   });
   describe('start the game', () => {

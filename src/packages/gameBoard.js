@@ -48,9 +48,9 @@ const gameBoard = (() => {
     set squares(newSquares) {
       squares = newSquares;
     },
-    get squares(){
-      return squares
-    }
+    get squares() {
+      return squares;
+    },
   };
 })();
 
