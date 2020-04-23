@@ -13,7 +13,7 @@ describe('The gameboard should', () => {
         <div class="main__container__square">x</div>
         <div class="main__container__square">x</div>
       </div>
-    `
+    `;
   });
 
   test('be an object', () => {
@@ -38,22 +38,22 @@ describe('The gameboard should', () => {
   describe('clear the board', () => {
     test('game board array is not empty', () => {
       expect(gameBoard.boardArray.length).toEqual(1);
-    })
+    });
     test('game board array is empty', () => {
       gameBoard.clearBoard();
       expect(gameBoard.boardArray.length).toEqual(0);
-    })
+    });
     test('squares should not be empty', () => {
       document.querySelectorAll('.main__container__square').forEach(square => {
         expect(square.innerHTML === '').toBeFalsy();
-      })
-    })
+      });
+    });
     test('squares should be empty', () => {
       gameBoard.clearBoard();
       document.querySelectorAll('.main__container__square').forEach(square => {
         expect(square.innerText).toEqual('');
         expect(square.innerText === '').toBeTruthy();
-      })
-    })
-  })
+      });
+    });
+  });
 });

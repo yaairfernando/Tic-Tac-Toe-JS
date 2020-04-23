@@ -131,6 +131,9 @@ const gameController = (() => {
   return {
     play,
     startGame,
+    set brd(newBrd) {
+      brd = newBrd;
+    },
   };
 })();
 
