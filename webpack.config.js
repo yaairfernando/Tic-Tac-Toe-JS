@@ -1,7 +1,7 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin'); //eslint-disable-line import/no-unresolved
-const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //eslint-disable-line import/no-unresolved
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin'); //eslint-disable-line import/no-unresolved
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // eslint-disable-line import/no-unresolved
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // eslint-disable-line import/no-unresolved
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin'); // eslint-disable-line import/no-unresolved
 
 module.exports = {
   entry: [
