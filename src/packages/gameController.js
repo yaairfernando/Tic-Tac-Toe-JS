@@ -62,8 +62,9 @@ const gameController = (() => {
       [2, 5, 8],
       [3, 6, 9],
     ];
-    combinations.forEach((combination) => {
-      if (combination.every(f => nums.indexOf(f) > -1)) {
+    // combinations.forEach((combination) => {
+    for (let i = 0; i < combinations.length; i += 1) {
+      if (combinations[i].every(f => nums.indexOf(f) > -1)) {
         displayWiner(plyr.name);
         document.querySelector('.main__messages').style.display = 'none';
         return false;
@@ -74,7 +75,8 @@ const gameController = (() => {
         return false;
       }
       return true;
-    });
+    }
+    // });
     return true;
   };
 
@@ -129,6 +131,7 @@ const gameController = (() => {
   };
 
   return {
+    win,
     play,
     startGame,
     set brd(newBrd) {

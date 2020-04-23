@@ -123,4 +123,42 @@ describe('The gameController should', () => {
       expect(turn.innerHTML === "It is Yair's turn").toBeTruthy();
     });
   });
+  it('returns false if someone won', () => {
+    document.querySelector('#playerOne').value = 'Yair';
+    document.querySelector('#playerTwo').value = 'Joseph';
+
+    gameController.startGame(gameBoard);
+    gameBoard.boardArray = [
+      { name: 'Yair', num: 1 },
+      { name: 'Yair', num: 2 },
+      { name: 'Yair', num: 3 },
+    ];
+    gameBoard.squares = [
+      { innerText: 'x' },
+      { innerText: 'x' },
+      { innerText: 'x' },
+    ];
+
+    gameController.brd = gameBoard;
+
+    expect(gameController.win({ name: 'Yair', mark: 'x' })).toEqual(false);
+  });
+  it('returns true if no one has won', () => {
+    document.querySelector('#playerOne').value = 'Yair';
+    document.querySelector('#playerTwo').value = 'Joseph';
+
+    gameController.startGame(gameBoard);
+    gameBoard.boardArray = [
+      { name: 'Yair', num: 1 },
+      { name: 'Yair', num: 2 },
+    ];
+    gameBoard.squares = [
+      { innerText: 'x' },
+      { innerText: 'x' },
+    ];
+
+    gameController.brd = gameBoard;
+
+    expect(gameController.win({ name: 'Yair', mark: 'x' })).toEqual(true);
+  });
 });
