@@ -3,3 +3,5 @@ node_modules
 
 /css/styles.scss
 /css/styles.css.map
+
+dist
